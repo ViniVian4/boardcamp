@@ -7,7 +7,7 @@ async function getGames(req, res) {
         let gamesList;
 
         if (name) {
-            gamesList = await connection.query(`SELECT * FROM games WHERE LOWER(name) LIKE $1`, [`${name.toLowerCase()}%`]);
+            gamesList = await connection.query(`SELECT * FROM games WHERE name LIKE $1`, [`${name.toLowerCase()}%`]);
         } else {
             gamesList = await connection.query(`SELECT * FROM games`);
         }
@@ -23,7 +23,7 @@ async function insertGame (req, res) {
 
     try {
         await connection.query(`INSERT INTO games (name, image, "stockTotal", "categoryId", "pricePerDay") VALUES ($1, $2, $3, $4, $5)`,
-        [name, image, stockTotal, categoryId, pricePerDay]);
+        [name.toLowerCase(), image, stockTotal, categoryId, pricePerDay]);
         res.sendStatus(201);
     } catch (err) {
         res.status(500).send(err);
