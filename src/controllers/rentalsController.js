@@ -94,7 +94,7 @@ export async function completeRental(req, res) {
 
         await connection.query(`UPDATE rentals SET "returnDate"=$1, "delayFee"=$2 WHERE id=$3`, [returnDate, delayFee, req.params.id]);
 
-        res.sendStatus(201);
+        res.sendStatus(200);
     } catch (err) {
         res.status(500).send(err);
     }
