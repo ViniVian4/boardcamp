@@ -1,6 +1,6 @@
 import connection from '../db/database.js';
 
-export async function getCategories(req, res) {
+async function getCategories(req, res) {
     try {
         const listCategories = await connection.query(`SELECT * FROM categories`);
         return res.status(200).send(listCategories.rows);
@@ -9,7 +9,7 @@ export async function getCategories(req, res) {
     }
 }
 
-export async function postCategories(req, res) {
+async function postCategories(req, res) {
     let { name } = req.body;
 
     try {

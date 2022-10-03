@@ -1,6 +1,6 @@
 import express from 'express';
-import { getGames, insertGame } from '../controllers/gamesController';
-import verifyGame from '../middlewares/gamesMiddleware';
+import { getGames, insertGame } from '../controllers/gamesController.js';
+import verifyGame from '../middlewares/gamesMiddleware.js';
 
 const router = express.Router();
 

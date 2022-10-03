@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
 import dotenv from 'dotenv';
-import cors from 'cors';
 
 import categoriesRouter from './routers/categoriesRouter.js';
 import gamesRouter from './routers/gamesRouter.js';
+import customersRouter from './routers/customersRouter.js';
 
 dotenv.config();
 
@@ -14,6 +14,6 @@ app.use(express.json());
 
 app.use(categoriesRouter);
 app.use(gamesRouter);
-
+app.use(customersRouter);
 
 app.listen(process.env.PORT, () => console.log(`Magic Happens on ${process.env.PORT}`));

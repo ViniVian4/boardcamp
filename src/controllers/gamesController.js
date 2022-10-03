@@ -1,6 +1,6 @@
 import connection from '../db/database.js';
 
-export async function getGames(req, res) {
+async function getGames(req, res) {
     const { name } = req.query;
     
     try {
@@ -18,7 +18,7 @@ export async function getGames(req, res) {
     }
 }
 
-export async function insertGame (req, res) {
+async function insertGame (req, res) {
     const { name, image, stockTotal, categoryId, pricePerDay } = req.body;
 
     try {

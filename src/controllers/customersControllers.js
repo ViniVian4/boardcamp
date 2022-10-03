@@ -1,6 +1,6 @@
 import connection from '../db/database.js';
 
-export async function getCustomers(req, res) {
+async function getCustomers(req, res) {
     const { cpf } = req.query;
 
     try {
@@ -19,7 +19,7 @@ export async function getCustomers(req, res) {
     }
 }
 
-export async function getCustomer (req, res) {
+async function getCustomer (req, res) {
     const { id } = req.params;
 
     try {
@@ -37,7 +37,7 @@ export async function getCustomer (req, res) {
     }
 }
 
-export async function insertCustomer (req, res) {
+async function insertCustomer (req, res) {
     const { name, phone, cpf, birthday } = req.body;
 
     try {
@@ -51,7 +51,7 @@ export async function insertCustomer (req, res) {
     }
 }
 
-export async function editCustomer (req, res) {
+async function editCustomer (req, res) {
     const { id } = req.params;
 	const { name, phone, cpf, birthday } = req.body;
 
@@ -65,3 +65,5 @@ export async function editCustomer (req, res) {
         res.status(500).send(err);
     }
 }
+
+export { getCustomers, getCustomer, insertCustomer, editCustomer }
