@@ -21,3 +21,16 @@ export async function verifyCustomer(req, res, next) {
     
     next();
 }
+
+export async function verifyCustomerUpdate( req, res, next) {
+    const newCustomer = req.body;
+
+    const validation = customerSchema.validate(newCustomer, {abortEarly: true});
+
+    if (validation.error) {
+        res.status(400).send(validation.error);
+        return;
+    }  
+    
+    next();
+}
