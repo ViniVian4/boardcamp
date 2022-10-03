@@ -13,7 +13,7 @@ async function postCategories(req, res) {
     let { name } = req.body;
 
     try {
-        await connection.query('INSERT INTO categories (name) VALUES ($1)', [name]);
+        await connection.query('INSERT INTO categories (name) VALUES ($1)', [name.toLowerCase()]);
         res.sendStatus(201);
         return;
     } catch (err) {
