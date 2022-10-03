@@ -20,8 +20,6 @@ async function verifyCategoryInput(req, res, next) {
     } catch (err) {
       res.status(500).send(err);
     }
-
-    next();
   }
   
   export default verifyCategoryInput;
