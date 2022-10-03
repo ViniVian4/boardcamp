@@ -1,4 +1,4 @@
-import connection from '../db.js';
+import connection from '../db/database.js';
 
 export async function getCategories(req, res) {
     try {
