@@ -14,7 +14,7 @@ export function verifyNewRental (req, res, next) {
 
 export async function verifyDbRental (req, res, next) {
     try {
-        const dbRental = connection.query(`SELECT * FROM rentals WHERE id=$1`, [req.params.id]);
+        const dbRental = await connection.query(`SELECT * FROM rentals WHERE id=$1`, [req.params.id,]);
 
         if (dbRental.rowCount === 0) {
             res.sendStatus(404);
