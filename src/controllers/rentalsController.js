@@ -5,21 +5,49 @@ export async function getRentals(req, res) {
     const { customerId, gameId } = req.query;
 
     try {
-        const rentals = await connection.query(
-            `SELECT rentals.*, jsonb_build_object('name', customers.name, 'id', customers.id) AS customer,
-            jsonb_build_object('id', games.id, 'name', games.name, 'categoryId', games."categoryId", 'categoryName', categories.name) AS games
-            FROM rentals 
-            JOIN customers ON rentals."customerId"=customers.id
-            JOIN games ON rentals."gameId"=games.id
-            JOIN categories ON categories.id = games."categoryId"
-            ${customerId || gameId ? 'WHERE ' : ''}
-            ${customerId ? `customers.id=${customerId} ` : ''}
-            ${customerId && gameId ? 'AND ' : ''}
-            ${gameId ? `games.id=${gameId} ` : ''}`);
+        const rentals = await connection.query(`SELECT  rentals.*,
+			customers.id AS customer_id,
+			customers.name AS customer_name,
+			games.id AS game_id,
+			games.name AS game_name,
+			categories.id AS category_id,
+			categories.name AS category_name FROM rentals 
+			JOIN customers ON rentals."customerId" = customers.id 
+			JOIN games ON rentals."gameId" = games.id 
+			JOIN categories ON games."categoryId" = categories.id
+			;`);
 
-        let ListRentals = rentals.rows;
+        let listRentals = rentals.rows;
 
-        res.status(200).send(ListRentals);
+        if (customerId) {
+            listRentals = listRentals.filter((data) => data.customerId === Number(customerId));
+        }
+        if (gameId) {
+            listRentals = listRentals.filter((data) => data.gameId === Number(gameId));
+        }
+
+        const finalList = listRentals.map((data) => ({
+            id: data.id,
+			customerId: data.customerId,
+			gameId: data.gameId,
+			rentDate: data.rentDate,
+			daysRented: data.daysRented,
+			returnDate: data.returnDate,
+			originalPrice: data.originalPrice,
+			delayFee: data.delayFee,
+			customer: {
+				id: data.customer_id,
+				name: data.customer_name,
+			},
+			game: {
+				id: data.game_id,
+				name: data.game_name,
+				categoryId: data.category_id,
+				categoryName: data.category_name
+			}
+        }));
+
+        res.status(200).send(finalList);
     } catch (err) {
         res.status(500).send(err);
     }
