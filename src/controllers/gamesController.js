@@ -28,3 +28,5 @@ export async function insertGame (req, res) {
         res.status(500).send(err);
     }
 }
+
+export { getGames, insertGame };
