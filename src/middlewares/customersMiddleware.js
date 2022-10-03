@@ -1,7 +1,7 @@
 import connection from '../db/database.js';
 import customerSchema from '../schemas/customerSchema.js';
 
-export async function verifyCustomer(req, res, next) {
+async function verifyCustomer(req, res, next) {
     const newCustomer = req.body;
 
     const validation = customerSchema.validate(newCustomer, {abortEarly: true});
@@ -21,3 +21,5 @@ export async function verifyCustomer(req, res, next) {
     
     next();
 }
+
+export default verifyCustomer;
