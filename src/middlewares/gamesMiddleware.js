@@ -3,6 +3,7 @@ import gameSchema from '../schemas/gameSchema.js';
 
 async function verifyGame(req, res, next) {
     const newGame = req.body;
+    console.log("a");
 
     const validation = gameSchema.validate(newGame, { abortEarly: true });
     if (validation.error) {
@@ -23,9 +24,9 @@ async function verifyGame(req, res, next) {
         }
 
         const name = await connection.query(
-            `SELECT * FROM games WHERE LOWER(name)=$1`, [newGame.name]
+            `SELECT * FROM games WHERE LOWER(name)=$1`, [newGame.name.toLowerCase()]
         );
-        if (name.rows.length === 0) {
+        if (name.rows.length !== 0) {
             res.sendStatus(409);
             return;
         }

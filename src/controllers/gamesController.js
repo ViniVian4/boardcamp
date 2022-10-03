@@ -1,18 +1,18 @@
 import connection from '../db/database.js';
 
-async function getGames(req, res) {
+async function getGames(req, res) {    
     const { name } = req.query;
     
     try {
         let gamesList;
 
         if (name) {
-            gamesList = connection.query(`SELECT * FROM games WHERE LOWER(name) LIKE $1`);
+            gamesList = await connection.query(`SELECT * FROM games WHERE LOWER(name) LIKE $1`, [`${name.toLowerCase()}%`]);
         } else {
-            gamesList = await connection.query("SELECT * FROM games;");
+            gamesList = await connection.query(`SELECT * FROM games`);
         }
 
-        res.status.send(gamesList);
+        res.status(200).send(gamesList.rows);
     } catch (err) {
         res.status(500).send(err);   
     }
