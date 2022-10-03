@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/customers', getCustomers);
 router.get('/customers/:id', getCustomer);
-router.post('customers', verifyCustomer, insertCustomer);
-router.put('customer:id', verifyCustomer, editCustomer);
+router.post('/customers', verifyCustomer, insertCustomer);
+router.put('/customers/:id', verifyCustomer, editCustomer);
 
 export default router;
