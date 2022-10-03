@@ -18,4 +18,4 @@ app.use(gamesRouter);
 app.use(customersRouter);
 app.use(rentalRouter);
 
-app.listen(process.env.PORT, () => console.log(`Magic Happens on ${process.env.PORT}`));
+app.listen(5000, () => console.log(`Magic Happens on 5000`));
